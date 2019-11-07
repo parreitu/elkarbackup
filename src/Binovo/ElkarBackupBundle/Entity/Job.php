@@ -104,6 +104,12 @@ class Job
      */
     protected $path;
 
+    
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $checkDiskUsage = true;
+
     /**
      * Disk usage in KB.
      *
@@ -478,6 +484,29 @@ class Job
     public function getLogEntry()
     {
         return $this->logEntry;
+    }
+
+    /**
+     * Set checkDiskUsage
+     *
+     * @param boolean $checkDiskUsage
+     * @return Job
+     */
+    public function setcheckDiskUsage($checkDiskUsage)
+    {
+        $this->checkDiskUsage = $checkDiskUsage;
+
+        return $this;
+    }
+
+    /**
+     * Get checkDiskUsage
+     *
+     * @return boolean
+     */
+    public function getcheckDiskUsage()
+    {
+        return $this->checkDiskUsage;
     }
 
     /**

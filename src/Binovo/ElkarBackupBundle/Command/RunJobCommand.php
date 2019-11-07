@@ -78,6 +78,7 @@ class RunJobCommand extends LoggingCommand
         $client     = $job->getClient();
         $idJob      = $job->getId();
         $url        = $job->getUrl();
+        $checkDiskUsage = $job->getcheckDiskUsage();
         $retains    = $job->getPolicy()->getRetains();
         $includes   = array();
         $include    = $job->getInclude();
@@ -279,8 +280,18 @@ class RunJobCommand extends LoggingCommand
         
         
         /* setDiskUsage()*/
-        $this->info('Client "%clientid%", Job "%jobid%" du begin.', array('%clientid%' => $job->getClient()->getId(), '%jobid%' => $job->getId()), $context);
-        $du = (int)shell_exec(sprintf("du -ks '%s' | sed 's/\t.*//'", $job->getSnapshotRoot()));
+
+
+        if (true == $checkDiskUsage) {
+            $du = (int)shell_exec(sprintf("du -ks '%s' | sed 's/\t.*//'", $job->getSnapshotRoot()));
+        } else {
+            $du = -1;
+        }
+
+
+        //$this->info('Client "%clientid%", Job "%jobid%" du begin.', array('%clientid%' => $job->getClient()->getId(), '%jobid%' => $job->getId()), $context);
+        //$du = (int)shell_exec(sprintf("du -ks '%s' | sed 's/\t.*//'", $job->getSnapshotRoot()));
+
         $job->setDiskUsage($du);
         $this->info('Client "%clientid%", Job "%jobid%" du end.', array('%clientid%' => $job->getClient()->getId(), '%jobid%' => $job->getId()), $context);
         

@@ -36,6 +36,8 @@ class JobType extends AbstractType
                                                                 'attr' => array('class'    => 'form-control','rows' => '3')))
                 ->add('path'                , 'text'    , array('label' => $t->trans('Path', array(), 'BinovoElkarBackup'),
                                                                 'attr'  => array('class'    => 'form-control')))
+                ->add('checkDiskUsage'      , 'checkbox', array('label'    => $t->trans('Check disk usage', array(), 'BinovoElkarBackup'),
+                                                                'required' => false))
                 ->add('notificationsTo'     , 'choice'  , array('label'    => $t->trans('Send notices to', array(), 'BinovoElkarBackup'),
                                                                 'required' => false,
                                                                 'attr'     => array('class'    => 'form-control-no'),
