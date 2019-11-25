@@ -21,9 +21,9 @@ then
         mkdir -p .debian/usr/share/elkarbackup
         composer install
     fi
-    php app/console assetic:dump --env=prod
-    php app/console cache:clear --env=prod --no-debug
-    php app/console cache:clear --env=dev  --no-debug
+    php bin/console assetic:dump --env=prod
+    php bin/console cache:clear --env=prod --no-debug
+    php bin/console cache:clear --env=dev  --no-debug
     mkdir -p .debian/usr/share/elkarbackup
     cp -a * .debian/usr/share/elkarbackup
 fi
@@ -80,8 +80,8 @@ chmod 0755 .debian/DEBIAN/config .debian/DEBIAN/postinst .debian/DEBIAN/postrm .
 
 
 # use prod environment in console by default
-sed -i "s#'dev'#'prod'#"                                                   .debian/usr/share/elkarbackup/app/console
-chmod a+x .debian/usr/share/elkarbackup/app/console
+sed -i "s#'dev'#'prod'#"                                                   .debian/usr/share/elkarbackup/bin/console
+chmod a+x .debian/usr/share/elkarbackup/bin/console
 VERSION=$(cat debian/DEBIAN/control | grep 'Version' | sed -e 's/Version: //' -e 's/ *//')
 mkdir -p .debian/var/spool/elkarbackup/backups
 mkdir -p .debian/var/spool/elkarbackup/uploads
