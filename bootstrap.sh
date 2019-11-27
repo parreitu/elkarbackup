@@ -19,20 +19,16 @@ then
     curl -o web/js/jquery/jquery-1.12.0.min.js http://code.jquery.com/jquery-1.12.0.min.js
 fi
 
-mkdir -p app/cache
-mkdir -p app/logs
-mkdir -p app/sessions
-
 HTTPDUSER=`ps axo user,comm | grep -E '[a]pache|[h]ttpd|[_]www|[w]ww-data|[n]ginx' | grep -v root | head -1 | cut -d\  -f1`
 if [ -z "$HTTPDUSER" ];then
     # Apache not running, use default username "www-data"
     HTTPDUSER="www-data"
 fi
 
-setfacl  -R -m u:$HTTPDUSER:rwx -m u:elkarbackup:rwx -m u:$(id -un):rwx app/cache
-setfacl -dR -m u:$HTTPDUSER:rwx -m u:elkarbackup:rwx -m u:$(id -un):rwx app/cache
-setfacl  -R -m u:$HTTPDUSER:rwx -m u:elkarbackup:rwx -m u:$(id -un):rwx app/logs
-setfacl -dR -m u:$HTTPDUSER:rwx -m u:elkarbackup:rwx -m u:$(id -un):rwx app/logs
-setfacl  -R -m u:$HTTPDUSER:rwx -m u:elkarbackup:rwx -m u:$(id -un):rwx app/sessions
-setfacl -dR -m u:$HTTPDUSER:rwx -m u:elkarbackup:rwx -m u:$(id -un):rwx app/sessions
+setfacl  -R -m u:$HTTPDUSER:rwx -m u:elkarbackup:rwx -m u:$(id -un):rwx var/cache
+setfacl -dR -m u:$HTTPDUSER:rwx -m u:elkarbackup:rwx -m u:$(id -un):rwx var/cache
+setfacl  -R -m u:$HTTPDUSER:rwx -m u:elkarbackup:rwx -m u:$(id -un):rwx var/logs
+setfacl -dR -m u:$HTTPDUSER:rwx -m u:elkarbackup:rwx -m u:$(id -un):rwx var/logs
+setfacl  -R -m u:$HTTPDUSER:rwx -m u:elkarbackup:rwx -m u:$(id -un):rwx var/sessions
+setfacl -dR -m u:$HTTPDUSER:rwx -m u:elkarbackup:rwx -m u:$(id -un):rwx var/sessions
 composer install --no-interaction

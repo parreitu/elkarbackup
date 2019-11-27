@@ -7,10 +7,10 @@ php:
 #  - 5.3  # Debian Squeeze => NOT SUPPORTED
 #  - 5.4  # Debian Wheezy  => NOT SUPPORTED
 #  - 5.5  # Ubuntu Trusty
-  - 5.6  # Debian Jessie
+#  - 5.6  # Debian Jessie
   - 7.0  # Debian Stretch / Ubuntu Xenial
-  - 7.1  # Ubuntu Bionic
   - 7.2  # Ubuntu Bionic
+  - 7.3  # Debian Buster / Ubuntu Eoan
 
 sudo: false
 
@@ -23,7 +23,7 @@ cache:
 
 env:
   global:
-  - COMPOSER_BIN_DIR=bin
+  - COMPOSER_BIN_DIR=./vendor/bin
   - SYMFONY_VERSION=2.8.x
   - DB=pdo_mysql DB_PATH=null
 
@@ -73,7 +73,7 @@ before_script:
 
 # Run script and log coverage in the "build" directory
 script:
-  - $COMPOSER_BIN_DIR/phpunit --coverage-text --coverage-clover build/coverage-clover.xml -c app
+  - $COMPOSER_BIN_DIR/phpunit --coverage-text --coverage-clover build/coverage-clover.xml
 
 # TODO: enable coveralls
 #after_success: |
